@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box}
+  body{margin:0;background:#0a0e1b;font-family:'Inter',sans-serif}
+  .phone{width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;background:#0a0e1b;color:#fff;font-family:'Inter',sans-serif}
+  .screen{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:20px;padding:16px 20px 96px}
+  .tabbar{flex-shrink:0;height:84px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 12px 14px;border-top:1px solid rgba(255,255,255,.08);background:#0a0e1b}
+  .header{display:flex;align-items:center;justify-content:space-between}
+  .brand{height:28px;width:auto;display:block}
+  .menu{width:36px;height:36px;display:grid;place-items:center;color:#ffffff;background:transparent;border:0;padding:0}
+  .hero{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .eyebrow{font-size:16px;line-height:24px;color:#e8e5f2;font-weight:400}
+  .headline{margin:0;font-size:46px;line-height:1.04;font-weight:800;letter-spacing:-.03em;max-width:350px;background:linear-gradient(90deg,#ffffff 0%,#f04fbf 58%,#63dff6 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subcopy{margin:0;max-width:330px;font-size:18px;line-height:1.45;color:#e8e5f2}
+  .write-btn{height:50px;padding:0 28px;border-radius:3px;border:0;background:#f04fbf;color:#fff;font:700 14px 'Inter',sans-serif}
+  .card{background:rgba(0,0,0,.22);border:1px solid rgba(240,79,191,.55);border-radius:3px;overflow:hidden}
+  .card-head{display:flex;gap:16px;align-items:flex-start;padding:20px}
+  .iconbox{width:56px;height:56px;border-radius:3px;background:#3b274d;border:1px solid rgba(240,79,191,.6);display:grid;place-items:center;flex:0 0 auto}
+  .iconbox svg{width:24px;height:24px;stroke:#f04fbf;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .card-title{margin:0;font-size:24px;line-height:1.2;font-weight:800;color:#fff}
+  .bodycopy{padding:0 20px 16px;display:flex;flex-direction:column;gap:18px}
+  .bodycopy p{margin:0;font-size:14px;line-height:23px;color:#9aa3b8}
+  .actions{padding:20px;display:flex;flex-direction:column;gap:8px;align-items:center}
+  .cta{width:100%;height:52px;border-radius:3px;border:0;background:#f04fbf;color:#fff;font:700 14px 'Inter',sans-serif;box-shadow:0 12px 28px rgba(240,79,191,.22)}
+  .secondary{width:100%;height:52px;border-radius:3px;border:1px solid transparent;background:rgba(255,255,255,.05);color:#fff;font:600 14px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+  .skip{font-size:12px;line-height:20px;font-weight:600;color:#9aa3b8;text-decoration:underline;background:none;border:0;padding:0}
+  .progress{background:rgba(255,255,255,.02);border:1px solid rgba(79,82,100,.4);border-radius:3px;padding:16px;display:flex;flex-direction:column;gap:20px}
+  .pill{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;padding:10px 12px;border-radius:3px;background:rgba(240,79,191,.12);border:1px solid rgba(240,79,191,.35);color:#e8e5f2;font-size:14px;line-height:20px}
+  .pill svg,.help svg,.tab svg,.menu svg,.secondary svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .progress h2{margin:0;font-size:30px;line-height:32px;font-weight:600;color:#fff}
+  .progress-body{min-height:72px;padding:16px;border:1px solid rgba(79,82,100,.45);border-radius:3px;color:#9aa3b8;font-size:14px;line-height:20px}
+  .help-wrap{display:flex;justify-content:flex-end}
+  .help{height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(99,223,246,.45);background:rgba(0,0,0,.35);color:#e8e5f2;display:flex;align-items:center;gap:6px}
+  .meta{display:flex;flex-direction:column;gap:12px}
+  .meta-card{background:rgba(255,255,255,.03);border:1px solid rgba(79,82,100,.45);border-radius:3px;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .meta-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .meta-title{font-size:16px;line-height:22px;font-weight:600;color:#fff;margin:0}
+  .badge{font-size:11px;line-height:1;font-weight:500;color:#e8e5f2;background:rgba(123,111,232,.25);padding:5px 8px;border-radius:3px;white-space:nowrap}
+  .meta-body,.meta-list{font-size:13px;line-height:19px;color:#9aa3b8;margin:0}
+  .meta-list{padding-left:16px}
+  .meta-list li{margin:0 0 6px 0}
+  .footer-links{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:8px}
+  .footer-links a{font-size:12px;line-height:18px;color:rgba(232,229,242,.6);text-decoration:none}
+  .copyright{font-size:11px;line-height:14px;color:rgba(232,229,242,.4);padding-top:8px}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;color:#8f90a2;text-decoration:none;font-size:10px;line-height:12px;font-weight:500;text-align:center}
+  .tab.active{color:#f04fbf}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="screen">
+    <div class="header" data-rewrite-id="header">
+      <img class="brand" data-rewrite-id="brand-logo" src="BrandLogo" alt="Brand" />
+      <div data-rewrite-id="header-actions">
+        
+      </div>
+    </div>
+
+    <div class="hero" data-rewrite-id="hero">
+      <div class="eyebrow" data-rewrite-id="header-label">Guided setup</div>
+      <h1 class="headline" data-rewrite-id="hero-headline">We'll ask questions along the way so the plan matches your intent—scope, how things should feel, and what to build first</h1>
+      <p class="subcopy" data-rewrite-id="hero-subcopy">You'll see previews and a clear quote before you pay for the full build. Nothing sneaky—just checkpoints so you stay in control.</p>
+      <button class="write-btn" data-rewrite-id="primary-cta">WRITE</button>
+    </div>
+
+    <section class="card" data-rewrite-id="feature-section">
+      <div class="card-head">
+        <div class="iconbox" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 4.5 12 2l7 2.5v15L12 22l-7-2.5z"/><path d="M12 2v20"/></svg>
+        </div>
+        <h2 class="card-title">How we'll build your native iOS app</h2>
+      </div>
+      <div class="bodycopy">
+        <p>To give you the best native iOS app we can, we start with a few straightforward steps: we look at your code and your live site so we understand what you're shipping.</p>
+        <p>We'll ask questions along the way so the plan matches your intent—scope, how things should feel, and what to build first.</p>
+        <p>You'll see previews and a clear quote before you pay for the full build. Nothing sneaky—just checkpoints so you stay in control.</p>
+      </div>
+      <div class="actions">
+        <button class="cta">Continue</button>
+        <a class="secondary" href="https://api.meetrewrite.com/api/v1/auth/github" data-rewrite-id="secondary-cta">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/><path d="M16 7a3 3 0 1 1 0 6"/><path d="M8 17a3 3 0 1 1 0-6"/></svg>
+          <span>Create account with GitHub (optional)</span>
+        </a>
+        <button class="skip">Skip for now</button>
+      </div>
+    </section>
+
+    <section class="progress">
+      <div class="pill">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        <span>Step 1/14 — Project Start</span>
+        <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <h2>Start your Project</h2>
+      <div class="progress-body">More: step name, session id, choices summary, downloads, all steps</div>
+    </section>
+
+    <div class="help-wrap">
+      <button class="help">
+        <svg viewBox="0 0 24 24"><path d="M8 10a4 4 0 1 1 7 2c-1.2 1.1-2 1.8-2 3"/><path d="M12 18h.01"/><path d="M21 12c0 4.97-4.03 9-9 9a8.96 8.96 0 0 1-4.74-1.35L3 21l1.35-4.26A8.96 8.96 0 0 1 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9Z"/></svg>
+        <span>?</span>
+      </button>
+    </div>
+
+    <div class="meta" data-rewrite-id="preview-disclaimer">
+      <section class="meta-card">
+        <div class="meta-head">
+          <h3 class="meta-title">Copy &amp; intent (/guided)</h3>
+          <span class="badge">Repo route</span>
+        </div>
+        <p class="meta-body">RE WRITE BETA Sign In With GitHub account_circle</p>
+      </section>
+
+      <section class="meta-card">
+        <div class="meta-head">
+          <h3 class="meta-title">Captured from your page</h3>
+        </div>
+        <ul class="meta-list">
+          <li><span class="sf-icon" aria-label="account circle" style="display:inline-flex;align-items:center;justify-content:center;width:1.25em;height:1.25em;font-size:1em;line-height:1;opacity:0.85">●</span></li>
+          <li>How we'll build your native iOS app</li>
+          <li>Create account with GitHub</li>
+          <li>Step 1/14 — Project Start</li>
+        </ul>
+      </section>
+
+      <section class="meta-card">
+        <div class="meta-head">
+          <h3 class="meta-title">Connection notes</h3>
+        </div>
+        <ul class="meta-list">
+          <li>Review: Waiting on review</li>
+          <li>Native reference: Account and billing: Professional account surface with subscription status, payment detail, and moderate chrome.</li>
+          <li>Web path: /guided</li>
+          <li>Reference guidance: header compact · hero comfortable · sections cards · CTA subtle · finish balanced</li>
+        </ul>
+      </section>
+
+      <section class="meta-card">
+        <div class="meta-head">
+          <h3 class="meta-title">Preview screen</h3>
+          <span class="badge">Compare with web</span>
+        </div>
+        <p class="meta-body">Use this preview to confirm scope and behavior — native polish and your goals beat matching every web pixel.</p>
+      </section>
+    </div>
+
+    <div class="footer-links" data-rewrite-id="footer-links">
+      <a href="/about">About</a>
+      <a href="/what-we-ship">What we ship</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/launch-guide">Launch guide</a>
+      <a href="/changelog">Changelog</a>
+      <a href="/guided">Guided experience</a>
+      <a href="/contact">Contact</a>
+      <a href="/status">Status</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="https://github.com/toddfishman/rewrite">Open-source project</a>
+      <a href="https://github.com/toddfishman/rewrite/blob/main/docs/product-progress.md">Product progress</a>
+      <div class="copyright"> 2026 Rewrite</div>
+    </div>
+  </div>
+  <nav class="tabbar" data-rewrite-id="tabbar">
+    <a class="tab" href="/">
+      <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/></svg>
+      <span><span class="sf-icon" aria-label="home" style="display:inline-flex;align-items:center;justify-content:center;width:1.25em;height:1.25em;font-size:1em;line-height:1;opacity:0.85">●</span></span>
+    </a>
+    <a class="tab" href="/what-we-ship">
+      <svg viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5Z"/><path d="M3 7.5V16.5L12 21l9-4.5v-9"/></svg>
+      <span>WHAT SHIPS</span>
+    </a>
+    <a class="tab" href="#behind-curtain">
+      <svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path d="M8 13a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path d="M2 20a6 6 0 0 1 12 0"/><path d="M10 20a6 6 0 0 1 12 0"/></svg>
+      <span>BEHIND CURTAIN</span>
+    </a>
+    <a class="tab active" href="/guided">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      <span>GUIDED</span>
+    </a>
+    <a class="tab" href="/contact">
+      <svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/><path d="M4 20a8 8 0 0 1 16 0"/></svg>
+      <span>CONTACT</span>
+    </a>
+  </nav>
+</div>
+</body>
+</html>

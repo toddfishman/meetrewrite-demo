@@ -98,8 +98,9 @@
   .scard .sd{color:var(--muted);font-size:13.5px}
 
   /* ---------- project picker ---------- */
-  .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  @media(max-width:860px){.projects{grid-template-columns:1fr}}
+  .projects{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:1100px){.projects{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.projects{grid-template-columns:1fr}}
   .proj{text-align:left;cursor:pointer;border:1px solid var(--line);background:var(--panel2);border-radius:16px;
     padding:18px;transition:.16s;position:relative;overflow:hidden}
   .proj:hover{border-color:var(--line2);transform:translateY(-2px)}
@@ -212,6 +213,29 @@
   .scr .tabbar .ti.on{opacity:1}
   .scr .tabbar .dotic{width:17px;height:17px;border-radius:6px;border:2px solid currentColor}
   .plabel{text-align:center;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:9px}
+
+  /* real captures */
+  .cap-grid{display:grid;grid-template-columns:1.2fr .75fr;gap:18px;align-items:start;margin-top:8px}
+  @media(max-width:720px){.cap-grid{grid-template-columns:1fr}}
+  .browser-frame{border:1px solid var(--line2);border-radius:12px;overflow:hidden;background:#070b14}
+  .browser-bar{height:32px;display:flex;align-items:center;gap:7px;padding:0 12px;border-bottom:1px solid var(--line);background:#0a0f1e}
+  .browser-bar .d{width:10px;height:10px;border-radius:50%}
+  .browser-bar .url{font-family:var(--mono);font-size:11px;color:var(--faint);margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .browser-frame img,.phone-img img{display:block;width:100%;height:auto}
+  .phone-shot{display:flex;flex-direction:column;align-items:center}
+  .phone-img{width:208px;border-radius:34px;overflow:hidden;border:8px solid #0c1020;
+    box-shadow:0 24px 50px rgba(0,0,0,.55),inset 0 0 0 1px var(--line2);background:#05080f}
+  .real-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;
+    color:var(--cyan);border:1px solid rgba(79,224,232,.35);border-radius:999px;padding:4px 9px;margin-left:8px;vertical-align:middle}
+  .compare-stack{display:flex;flex-direction:column;gap:28px}
+  .compare-pair{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+  .compare-side{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .compare-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line2)}
+  .compare-tag.web{color:var(--muted)}
+  .compare-tag.native{color:var(--cyan);border-color:rgba(79,224,232,.4);background:rgba(79,224,232,.08)}
+  .compare-arrow{font-family:var(--disp);font-size:28px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 4px}
+  .review-shot{border:1px solid var(--line2);border-radius:12px;overflow:hidden;margin-top:6px}
+  .review-shot img{display:block;width:100%;height:auto}
   .pcard{border-radius:12px;padding:10px;margin-bottom:8px}
   .pline{height:7px;border-radius:4px;margin:5px 0;opacity:.5}
   .pbtn{border-radius:9px;text-align:center;font-size:11px;font-weight:700;padding:9px;margin-top:6px}
@@ -336,7 +360,7 @@
       <button class="btn primary" onclick="document.getElementById('pick').scrollIntoView({behavior:'smooth'})">Pick an example run <span class="arr">→</span></button>
       <button class="btn" id="autoBtn2">▶ Auto-run the whole thing</button>
       <button class="btn ghost" id="tourBtn2">↳ Take the tour</button>
-      <span class="note">~5 min · no signup · 3 sample projects</span>
+      <span class="note">~5 min · no signup · real screenshots for MeetRewrite</span>
     </div>
   </div>
 </div>
@@ -367,7 +391,7 @@
 <!-- ===== project picker ===== -->
 <div class="sec wrap" id="pick">
   <h2>Step 0 · Choose a project</h2>
-  <div class="h3">Pick a sample to run through the workflow</div>
+  <div class="h3">MeetRewrite uses real captures — the others are stylized examples</div>
   <div class="projects" id="projectGrid"></div>
 </div>
 
@@ -403,7 +427,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="disc">Unofficial interactive demo illustrating the Rewrite workflow (meetrewrite.com). Projects, scans, quotes and screens are fictional examples — no real code is generated and no payment is taken.</div>
+    <div class="disc">Interactive demo of the Rewrite guided workflow. <b>MeetRewrite</b> uses real site captures and native preview frames from a dogfood build. Other sample projects illustrate the same steps with stylized placeholders. No payment is taken.</div>
     <div>© 2026 · Rewrite demo</div>
   </div>
 </footer>
@@ -430,6 +454,31 @@ const STEP_TITLES = [
 ];
 
 const PROJECTS = {
+  meetrewrite:{
+    emoji:'✦', name:'MeetRewrite', tag:'Marketing site · Next.js', url:'meetrewrite.com',
+    desc:'The real Rewrite site — live URL capture plus native SwiftUI previews from an actual guided build.',
+    chips:['Next.js','GitHub','Real captures'], hasCode:true, codeKind:'GitHub · toddfishman/rewrite',
+    stack:'Next.js · App Router · Tailwind',
+    routes:['/','/start','/guided','/pricing','/about','/faq','/contact','/demo','/scan','/status','/terms','/privacy','/what-we-ship','/launch-guide','/account','/auth/callback','/behind-the-curtain','/investor-package','/platform-source-helper'],
+    tokens:{primary:'#7b6fe8',accent:'#f04fbf',bg:'#0a0e1b',font:'"Space Grotesk" + "Inter"'},
+    components:186, apis:'Stripe + hosted API — matched from repo',
+    capture:{desktop:'assets/meetrewrite/capture-home-desktop.png',mobile:'assets/meetrewrite/capture-home-mobile.png',label:'meetrewrite.com · iPhone capture'},
+    comparePreviews:true,
+    scope:[
+      {n:'Home / marketing',keep:true,rt:'NativeTab'},{n:'Start your build',keep:true,rt:'FormView'},
+      {n:'Guided workflow',keep:true,rt:'WizardView'},{n:'Pricing',keep:true,rt:'QuoteView'},
+      {n:'FAQ & contact',keep:true,rt:'ContentView'},{n:'Account',keep:true,rt:'AuthView'},
+      {n:'Investor package',keep:false,rt:'deferred — phase 2'},
+    ],
+    nav:'Tab bar (Home · Start · Guided · Account)', theme:'Dark · navy + pink/cyan gradient', tier:'fully',
+    previews:[
+      {title:'Home', image:'assets/meetrewrite/native-home-mobile.png', compare:'assets/meetrewrite/capture-home-mobile.png'},
+      {title:'Start', image:'assets/meetrewrite/native-start-mobile.png', compare:'assets/meetrewrite/capture-start-mobile.png'},
+    ],
+    reviewShot:'assets/meetrewrite/capture-guided-mobile.png',
+    quote:{tierName:'Standard',rows:[['19 native screens','incl.'],['Stripe + API wiring from repo','incl.'],['Push + camera permissions','incl.'],['Preview iterations (2 rounds)','incl.']],total:'$523',eta:'~24h'},
+    files:'meetrewrite',
+  },
   brew:{
     emoji:'🪴', name:'Brew & Bloom', tag:'Shopify storefront · no-code', url:'brewandbloom.myshopify.com',
     desc:'A specialty coffee + houseplant shop on Shopify. URL only — no code to share.',
@@ -499,7 +548,7 @@ const PROJECTS = {
 };
 
 /* ============================================================ STATE */
-let current='brew', step=1, auto=false, autoTimer=null;
+let current='meetrewrite', step=1, auto=false, autoTimer=null;
 
 /* ============================================================ PICKER */
 function renderProjects(){
@@ -597,7 +646,22 @@ STEPS[2]=(p)=> p.hasCode ? `
     <div class="kv"><span class="k">Data source</span><span class="v cy">${p.apis}</span></div>
     <div class="kv"><span class="k">Checkout</span><span class="v">native cart → hosted checkout</span></div></div>`;
 
-STEPS[3]=(p)=>`
+STEPS[3]=(p)=> p.capture ? `
+  <div class="card"><h4><span class="ic">📸</span> Captured ${p.url}<span class="real-badge">● live screenshot</span></h4>
+    <div class="cap-grid">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span>
+          <span class="url">https://${p.url}</span></div>
+        <img src="${p.capture.desktop}" alt="Desktop capture of ${p.url}" loading="lazy" /></div>
+      <div class="phone-shot">
+        <div class="phone-img"><img src="${p.capture.mobile}" alt="Mobile capture of ${p.url}" loading="lazy" /></div>
+        <div class="plabel">${p.capture.label}</div></div></div></div>
+  <div class="card"><h4><span class="ic">🎨</span> Extracted design tokens</h4>
+    <div class="kv"><span class="k">Primary</span><span class="v" style="color:${p.tokens.primary}">${p.tokens.primary}</span></div>
+    <div class="kv"><span class="k">Accent</span><span class="v" style="color:${p.tokens.accent}">${p.tokens.accent}</span></div>
+    <div class="kv"><span class="k">Background</span><span class="v">${p.tokens.bg}</span></div>
+    <div class="kv"><span class="k">Type</span><span class="v">${p.tokens.font}</span></div></div>` : `
   <div class="card"><h4><span class="ic">📸</span> Captured ${p.url}</h4>
     <div style="border:1px solid var(--line2);border-radius:11px;overflow:hidden;margin-top:6px;background:${p.tokens.bg}">
       <div style="height:30px;background:#070b14;display:flex;align-items:center;gap:6px;padding:0 12px">
@@ -645,9 +709,11 @@ STEPS[6]=(p)=>`
     <div class="kv"><span class="k">Target</span><span class="v cy">iOS 17+ · iPhone</span></div></div></div>`;
 
 STEPS[7]=(p)=>`
-  <div class="banner" style="margin-bottom:16px"><div class="bt">✨ Free preview — your app, on a real iPhone</div>
-    <div class="bd">Native SwiftUI rendering of the scoped screens. No payment yet. This is the “see it before you pay” moment.</div></div>
-  <div class="phones">${p.previews.map(pv=>renderPhone(pv)).join('')}</div>`;
+  <div class="banner" style="margin-bottom:16px"><div class="bt">✨ Free preview — your app, on a real iPhone${p.comparePreviews?' <span class="real-badge">● real frames</span>':''}</div>
+    <div class="bd">${p.comparePreviews?'Side-by-side: what we captured from your live site → the free native SwiftUI preview. No payment yet.':'Native SwiftUI rendering of the scoped screens. No payment yet. This is the “see it before you pay” moment.'}</div></div>
+  ${p.comparePreviews
+    ? `<div class="compare-stack">${p.previews.map(pv=>renderCompare(pv)).join('')}</div>`
+    : `<div class="phones">${p.previews.map(pv=>renderPhone(pv)).join('')}</div>`}`;
 
 STEPS[8]=(p)=>{const fully=p.tier==='fully';return `
   <div class="opts" style="grid-template-columns:1fr 1fr">
@@ -673,6 +739,7 @@ STEPS[9]=(p)=>`
 STEPS[10]=(p)=>`
   <div class="card"><h4><span class="ic">⚒</span> Build &amp; review · parity check</h4>
     <div style="color:var(--muted);font-size:13px;margin-bottom:10px">Each native screen reviewed against the captured source. Parity notes travel in the handoff.</div>
+    ${p.reviewShot?`<div class="review-shot"><img src="${p.reviewShot}" alt="Guided build review" loading="lazy" /></div>`:''}
     ${p.scope.filter(s=>s.keep).map(s=>`<div class="subrow pass"><span class="s">✓</span> ${s.n} <span class="tag2">${s.rt}</span></div>`).join('')}</div>
   <div class="card"><h4><span class="ic">📝</span> Parity notes</h4>
     <div class="kv"><span class="k">Design match</span><span class="v acc">tokens applied · ${p.theme.split('·')[0].trim()}</span></div>
@@ -732,8 +799,23 @@ STEPS[13]=(p)=>`
       <button class="btn ghost" onclick="restart()">↺ Run again</button>
       <button class="btn primary" onclick="document.getElementById('pick').scrollIntoView({behavior:'smooth'})">Try another project →</button></div></div>`;
 
-/* ---- phone renderer ---- */
+/* ---- compare + phone renderers ---- */
+function renderCompare(pv){
+  return `<div class="compare-block">
+    <div class="compare-pair">
+      <div class="compare-side"><div class="compare-tag web">Your site today</div>
+        <div class="phone-shot"><div class="phone-img"><img src="${pv.compare}" alt="Web capture — ${pv.title}" loading="lazy" /></div></div></div>
+      <div class="compare-arrow">→</div>
+      <div class="compare-side"><div class="compare-tag native">Native preview</div>
+        <div class="phone-shot"><div class="phone-img"><img src="${pv.image}" alt="Native preview — ${pv.title}" loading="lazy" /></div></div></div>
+    </div>
+    <div class="plabel">${pv.title} · free SwiftUI preview</div></div>`;
+}
 function renderPhone(pv){
+  if(pv.image){
+    return `<div><div class="phone-shot"><div class="phone-img"><img src="${pv.image}" alt="${pv.title}" loading="lazy" /></div>
+      <div class="plabel">${pv.title} · SwiftUI</div></div></div>`;
+  }
   const tabs={shop:['Shop','Search','Cart','Account'],product:['Shop','Search','Cart','Account'],
     today:['Today','Habits','Stats','Settings'],stats:['Today','Habits','Stats','Settings'],
     dash:['Home','Invoices','Clients','Settings'],invoice:['Home','Invoices','Clients','Settings']}[pv.render];
@@ -840,7 +922,7 @@ const TOUR=[
    body:'This is an interactive demo of the real product workflow — watch a website become a native iOS app in 13 guided steps. Preview free, pay when it ships. Take the 4-step tour?',
    cta:'Take the tour'},
   {target:'#projectGrid',title:'1 · Pick a project',pos:'bottom',
-   body:'Start with one of three sample businesses — a Shopify shop, a React SaaS app, or a Next.js tool. Each runs through the same workflow with its own real-looking data.',cta:'Next'},
+   body:'Start with MeetRewrite — real site captures and native preview frames from an actual build. Or try three fictional examples (Shopify, SaaS, invoicing) to see the same 13-step flow.',cta:'Next'},
   {target:'#rail',title:'2 · Follow the 13 steps',pos:'right',
    body:'The workflow runs in three phases: Scan & Scope, Preview & Quote, Build & Handoff. Click any step here to jump straight to it.',cta:'Next'},
   {target:'#nextBtn',title:'3 · Step through it',pos:'top',

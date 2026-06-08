@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<style>
+  body{margin:0;background:#0a0e1b;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+  .phone{width:390px;height:844px;position:relative;overflow:hidden;display:flex;flex-direction:column;background:#0a0e1b;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+  .screen{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:20px;padding:16px 20px 96px}
+  .tabbar{flex-shrink:0;height:84px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 12px 14px;border-top:1px solid #3b274d;background:#0a0e1b}
+  .header{display:flex;align-items:center;justify-content:space-between}
+  .brandwrap{display:flex;align-items:center;gap:10px}
+  .brand{height:28px;width:auto;display:block}
+  .beta{font-size:16px;font-weight:700;letter-spacing:2px;color:#63dff6}
+  .header-actions{display:flex;align-items:center;gap:20px}
+  .header-actions a{text-decoration:none;font-size:14px;font-weight:400}
+  .demo{color:#9aa3b8}
+  .back{color:#8f90a2}
+  .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+  .chip{display:inline-flex;align-items:center;justify-content:center;padding:8px 14px;border:1px solid #4f5264;border-radius:3px;color:#fff;text-decoration:none;font-size:16px}
+  .headline-wrap{padding-top:140px;display:flex;flex-direction:column;gap:10px;align-items:center}
+  .headline-top{margin:0;font-size:50px;line-height:.98;font-weight:700;color:#fff;letter-spacing:-1.8px}
+  .headline-bottom{margin:0;font-size:50px;line-height:.98;font-weight:700;letter-spacing:-1.8px;background:linear-gradient(90deg,#f04fbf 0%,#7b6fe8 55%,#63dff6 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .form-shell{width:100%;display:flex;flex-direction:column;gap:16px;align-items:center}
+  .input-pill{width:100%;display:flex;align-items:center;gap:8px;padding:6px;background:#0a0e1b;border:1px solid #f04fbf;border-radius:3px;box-sizing:border-box}
+  .field{flex:1;height:48px;display:flex;align-items:center;padding:0 16px;border:1px solid #3b274d;border-radius:3px;box-sizing:border-box;background:#0a0e1b}
+  .prefix{font-size:14px;color:#8f90a2;margin-right:0}
+  input{flex:1;background:transparent;border:0;outline:none;color:#fff;font-size:14px;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+  input::placeholder{color:#4f5264}
+  .cta{height:48px;border:0;border-radius:3px;padding:0 20px;min-width:126px;background:linear-gradient(90deg,#f04fbf 0%,#7b6fe8 55%,#63dff6 100%);color:#fff;font-size:16px;font-weight:700;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+  .benefits{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
+  .benefit{display:flex;align-items:center;gap:8px;font-size:13px;color:#8f90a2}
+  .check{color:#63dff6;font-size:15px}
+  .card{border:1px solid #3b274d;border-radius:3px;padding:14px;background:#0a0e1b;display:flex;flex-direction:column;gap:10px}
+  .card h3{margin:0;font-size:16px;font-weight:600;color:#fff}
+  .card p,.card li,.card div{font-size:14px;line-height:1.4;color:#9aa3b8}
+  .card ul{margin:0;padding-left:18px}
+  .card.cta-card{border-color:#7b6fe8}
+  .badge{font-size:12px;font-weight:500;color:#63dff6}
+  .cta-badge{color:#f04fbf}
+  .tabitem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;text-decoration:none;color:#9aa3b8;font-size:10px;font-weight:500;text-align:center}
+  .tabitem svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tabitem.fill svg .fill{fill:currentColor;stroke:none}
+  .tabitem.active{color:#9aa3b8}
+  .tabitem.active .active-grad{stroke:none;fill:url(#tabGrad)}
+  .tabitem.active .active-stroke{stroke:url(#tabGrad);fill:none}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="screen">
+    <div class="header" data-rewrite-id="header">
+      <div class="brandwrap">
+        <img class="brand" data-rewrite-id="brand-logo" src="BrandLogo" alt="Brand" />
+        <div class="beta" data-rewrite-id="header-label">BETA</div>
+      </div>
+      <div class="header-actions" data-rewrite-id="header-actions">
+        <a class="demo" data-rewrite-id="nav-action-1" href="https://meetrewrite.com/demo">Demo</a>
+        <a class="back" data-rewrite-id="nav-action-2" href="https://meetrewrite.com/">← Back</a>
+      </div>
+    </div>
+
+    <div class="hero" data-rewrite-id="hero">
+      <a class="chip" data-rewrite-id="secondary-cta" href="https://meetrewrite.com/">RE WRITE BETA</a>
+      <div class="headline-wrap">
+        <h1 class="headline-top" data-rewrite-id="hero-headline">Paste your URL.</h1>
+        <h1 class="headline-bottom">See your iOS app.</h1>
+      </div>
+      <div class="form-shell">
+        <div class="input-pill">
+          <div class="field">
+            <span class="prefix">https://</span>
+            <input aria-label="Website URL" placeholder="your-website.com" />
+          </div>
+          <button class="cta" data-rewrite-id="primary-cta">Preview →</button>
+        </div>
+        <div class="benefits">
+          <div class="benefit"><span class="check">✓</span><span>Free</span></div>
+          <div class="benefit"><span class="check">✓</span><span>No signup</span></div>
+          <div class="benefit"><span class="check">✓</span><span>~5 minutes</span></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="card" data-rewrite-id="feature-section">
+      <h3>Copy &amp; intent (/start)</h3>
+      <div>RE WRITE BETA Demo ← Back</div>
+      <div class="badge">Repo route</div>
+    </section>
+
+    <section class="card" data-rewrite-id="preview-disclaimer">
+      <h3>Captured from your page</h3>
+      <ul>
+        <li>BEHIND CURTAIN</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>Connection notes</h3>
+      <ul>
+        <li>Review: Waiting on review</li>
+        <li>Native reference: Account and billing: Professional account surface with subscription status, payment detail, and moderate chrome.</li>
+        <li>Web path: /start</li>
+        <li>Reference guidance: header compact · hero comfortable · sections cards · CTA subtle · finish balanced</li>
+      </ul>
+    </section>
+
+    <section class="card cta-card" data-rewrite-id="footer-links">
+      <h3>Preview screen</h3>
+      <p>Use this preview to confirm scope and behavior — native polish and your goals beat matching every web pixel.</p>
+      <div class="badge cta-badge">Compare with web</div>
+    </section>
+  </div>
+
+  <nav class="tabbar" data-rewrite-id="tabbar">
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <linearGradient id="tabGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f04fbf"></stop>
+          <stop offset="55%" stop-color="#7b6fe8"></stop>
+          <stop offset="100%" stop-color="#63dff6"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+    <a class="tabitem" href="https://meetrewrite.com/" aria-label="HOME">
+      <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"></path><path d="M6 9.5V21h12V9.5"></path><path d="M10 21v-6h4v6"></path></svg>
+      <span>HOME</span>
+    </a>
+    <a class="tabitem fill" href="https://meetrewrite.com/what-we-ship" aria-label="WHAT SHIPS">
+      <svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="1.5"></rect><path d="M4 11h16"></path><path d="M9 7V4h6v3"></path></svg>
+      <span>WHAT SHIPS</span>
+    </a>
+    <a class="tabitem active" href="https://meetrewrite.com/behind-the-curtain" aria-label="BEHIND CURTAIN">
+      <svg viewBox="0 0 24 24"><path class="active-stroke" d="M8 7h8"></path><path class="active-stroke" d="M8 12h8"></path><path class="active-stroke" d="M8 17h5"></path><circle class="active-grad" cx="17.5" cy="7" r="2.5"></circle><circle class="active-grad" cx="15.5" cy="12" r="2.5"></circle><circle class="active-grad" cx="18" cy="17" r="2"></circle></svg>
+      <span>BEHIND CURTAIN</span>
+    </a>
+    <a class="tabitem" href="https://meetrewrite.com/guided" aria-label="GUIDED">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+      <span>GUIDED</span>
+    </a>
+    <a class="tabitem" href="https://meetrewrite.com/contact" aria-label="CONTACT">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"></circle><path d="M5 19a7 7 0 0 1 14 0"></path><path d="M18.5 6.5a2 2 0 1 1 0 4"></path></svg>
+      <span>CONTACT</span>
+    </a>
+  </nav>
+</div>
+</body>
+</html>
