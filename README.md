@@ -1,27 +1,24 @@
-# Rewrite — Interactive Workflow Demo
+# Rewrite — Auto demo (real screenshots)
 
-An interactive, self-contained demo of the [Rewrite](https://meetrewrite.com) product workflow:
-turning a website / web app / storefront into a **native iOS app** (Swift / SwiftUI) — *preview free, pay when it ships*.
+A **~60-second autoplay** of the Rewrite guided workflow using **real screenshots** from meetrewrite.com and an actual dogfood build.
 
-Walk through the real **13-step, 3-phase workflow**: scan & scope → preview & quote → build & handoff.
+**Live:** https://toddfishman.github.io/meetrewrite-demo/
 
-## What's new
+## Modes
 
-**MeetRewrite** (default project) uses **real assets** from a dogfood build:
+| URL | Behavior |
+|-----|----------|
+| Default | **Cinema mode** — autoplays all 13 steps, loops, real screenshots |
+| `?interactive=1` | Manual mode — click through, optional fictional sample projects |
 
-- Live site captures from `meetrewrite.com` (desktop + mobile)
-- Native SwiftUI preview frames rendered from actual polish output
-- Side-by-side compare on the free-preview step (web → native)
+## Controls (cinema)
 
-Three fictional examples (Shopify shop, React SaaS, Next.js invoicing) still illustrate the same flow with stylized placeholders.
+- **Space** or **click the stage** — pause / resume
+- **← / →** — step manually (pauses autoplay)
+- **Manual mode** link — switch to interactive version
 
-## Try it
+## Assets
 
-- **GitHub Pages:** https://toddfishman.github.io/meetrewrite-demo/
-- **Local:** `python3 -m http.server 8765` then open http://localhost:8765/
+`assets/meetrewrite/steps/` — per-step captures from url-capture + native polish frames.
 
-Step through manually, click any step in the rail, or hit **Auto-run** to watch the whole thing. Includes a guided narration tour for first-time viewers.
-
-Single static `index.html` + `assets/`, no backend. Brand styling (navy + pink→purple→cyan gradient, Space Grotesk) matched to meetrewrite.com.
-
-*Unofficial demo — MeetRewrite uses real captures; other projects are illustrative examples. No payment is taken.*
+Local preview: `python3 -m http.server 8765`

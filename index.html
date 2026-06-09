@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rewrite — Interactive Demo · Web → iOS, the whole workflow</title>
+<title>Rewrite — meetrewrite.com → native iOS (auto demo)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -320,9 +320,46 @@
     background:var(--panel);border:1px solid var(--line2);color:var(--cyan);font-family:var(--disp);font-weight:700;font-size:18px;
     cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:.15s;display:grid;place-items:center}
   .helpfab:hover{border-color:var(--cyan);transform:translateY(-2px)}
+
+  /* ---------- cinema / autoplay mode ---------- */
+  body.cinema .hero,body.cinema .sec.wrap,body.cinema footer,body.cinema .helpfab,body.cinema .stagefoot{display:none!important}
+  body.cinema .top .pill b{color:var(--pink)}
+  body.cinema .wrap.player-wrap{padding:18px 22px 88px;max-width:1120px}
+  body.cinema .shell{grid-template-columns:200px 1fr;border-color:var(--line2);box-shadow:0 24px 80px rgba(0,0,0,.45)}
+  body.cinema .rail{padding:14px 12px}
+  body.cinema .step{font-size:12.5px;padding:6px 8px}
+  body.cinema .stage{min-height:640px;padding:22px 24px}
+  body.cinema .stagehead h3{font-size:21px}
+  body.cinema .stagehead .blurb{max-width:none;font-size:14.5px}
+  body.cinema .stagebody{display:flex;align-items:center;justify-content:center}
+  body.cinema .shot-wrap{width:100%;animation:fade .5s ease}
+  body.cinema .shot-phone{display:flex;justify-content:center}
+  body.cinema .shot-phone .phone-img{width:250px}
+  body.cinema .shot-desktop .browser-frame{max-width:720px;margin:0 auto}
+  body.cinema .shot-desktop img{max-height:440px;object-fit:cover;object-position:top center}
+  body.cinema .compare-stack{gap:22px}
+  body.cinema .compare-pair{gap:18px}
+  body.cinema .compare-side .phone-img{width:220px}
+  #cinemaBar{position:fixed;bottom:0;left:0;right:0;height:5px;background:#12182c;z-index:80}
+  #cinemaFill{height:100%;width:0;background:var(--grad);transition:width .15s linear}
+  #cinemaHud{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:81;display:flex;align-items:center;gap:12px;
+    background:rgba(10,14,27,.88);border:1px solid var(--line2);border-radius:999px;padding:8px 14px 8px 10px;
+    backdrop-filter:blur(10px);font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  #cinemaHud button{background:var(--panel);border:1px solid var(--line2);color:var(--ink);border-radius:50%;
+    width:32px;height:32px;cursor:pointer;font-size:14px;line-height:1}
+  #cinemaHud button:hover{border-color:var(--cyan)}
+  #cinemaHud a{color:var(--cyan);text-decoration:none;font-size:11px}
+  #cinemaHud a:hover{text-decoration:underline}
+  .intro{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:24px;transition:opacity .6s ease,visibility .6s}
+  .intro.off{opacity:0;visibility:hidden;pointer-events:none}
+  .intro .imark{width:72px;height:72px;margin-bottom:18px;filter:drop-shadow(0 6px 24px rgba(181,123,255,.45))}
+  .intro h1{font-family:var(--disp);font-size:clamp(22px,4vw,34px);margin:0 0 10px;letter-spacing:-.02em}
+  .intro p{color:var(--muted);font-size:14px;margin:0;font-family:var(--mono)}
+  .intro .spin{width:10px;height:10px;border-radius:50%;background:var(--cyan);margin-top:22px;animation:pulse 1s infinite}
 </style>
 </head>
-<body>
+<body class="cinema">
 
 <!-- ===== reusable logo mark (gradient R) ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -345,8 +382,9 @@
     </a>
     <span class="rw-sub">Web → iOS</span>
     <div class="spacer"></div>
-    <span class="pill">interactive demo · <b>not a live build</b></span>
-    <button class="btn ghost" id="autoBtn" style="padding:9px 13px;font-size:13px">▶ Auto-run</button>
+    <span class="pill" id="modePill">auto-playing · <b>real screenshots</b></span>
+    <button class="btn ghost" id="autoBtn" style="padding:9px 13px;font-size:13px">⏸ Pause</button>
+    <a class="btn ghost" id="interactiveLink" href="?interactive=1" style="padding:9px 13px;font-size:13px;text-decoration:none">Manual mode</a>
   </div>
 </div>
 
@@ -395,8 +433,21 @@
   <div class="projects" id="projectGrid"></div>
 </div>
 
+<div id="intro" class="intro on">
+  <svg class="imark" viewBox="0 0 100 100" aria-hidden="true"><text x="50" y="78" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="92" font-weight="700" letter-spacing="-3" fill="url(#rwGrad)">R</text></svg>
+  <h1>Watch <span style="color:var(--cyan)">meetrewrite.com</span> become a native iOS app</h1>
+  <p>13 steps · real screenshots · preview free, pay when it ships</p>
+  <span class="spin"></span>
+</div>
+<div id="cinemaBar"><div id="cinemaFill"></div></div>
+<div id="cinemaHud" style="display:none">
+  <button id="playPauseBtn" title="Pause / play">⏸</button>
+  <span id="cinemaStep">Step 1 / 13</span>
+  <a href="?interactive=1">Click to explore →</a>
+</div>
+
 <!-- ===== workflow shell ===== -->
-<div class="wrap" style="padding-bottom:60px">
+<div class="wrap player-wrap" style="padding-bottom:60px">
   <div class="shell" id="shell">
     <div class="rail" id="rail">
       <div class="railhead">
@@ -476,6 +527,24 @@ const PROJECTS = {
       {title:'Start', image:'assets/meetrewrite/native-start-mobile.png', compare:'assets/meetrewrite/capture-start-mobile.png'},
     ],
     reviewShot:'assets/meetrewrite/capture-guided-mobile.png',
+    stepShots:{
+      1:{type:'phone',src:'assets/meetrewrite/steps/01-url.png'},
+      2:{type:'phone',src:'assets/meetrewrite/steps/02-code.png'},
+      3:{type:'dual',desktop:'assets/meetrewrite/steps/03-capture-desktop.png',mobile:'assets/meetrewrite/steps/03-capture-mobile.png'},
+      4:{type:'phone',src:'assets/meetrewrite/steps/04-scan.png'},
+      5:{type:'phone',src:'assets/meetrewrite/steps/05-scope.png'},
+      6:{type:'phone',src:'assets/meetrewrite/steps/06-prefs.png'},
+      7:{type:'compare',pairs:[
+        {title:'Home',web:'assets/meetrewrite/steps/07-web-home.png',native:'assets/meetrewrite/steps/07-native-home.png'},
+        {title:'Start',web:'assets/meetrewrite/steps/07-web-start.png',native:'assets/meetrewrite/steps/07-native-start.png'},
+      ]},
+      8:{type:'phone',src:'assets/meetrewrite/steps/08-tier.png'},
+      9:{type:'phone',src:'assets/meetrewrite/steps/09-quote.png'},
+      10:{type:'phone',src:'assets/meetrewrite/steps/10-build-guided.png'},
+      11:{type:'phone',src:'assets/meetrewrite/steps/11-balance.png'},
+      12:{type:'phone',src:'assets/meetrewrite/steps/12-handoff.png'},
+      13:{type:'phone',src:'assets/meetrewrite/steps/13-ship.png'},
+    },
     quote:{tierName:'Standard',rows:[['19 native screens','incl.'],['Stripe + API wiring from repo','incl.'],['Push + camera permissions','incl.'],['Preview iterations (2 rounds)','incl.']],total:'$523',eta:'~24h'},
     files:'meetrewrite',
   },
@@ -548,7 +617,10 @@ const PROJECTS = {
 };
 
 /* ============================================================ STATE */
-let current='meetrewrite', step=1, auto=false, autoTimer=null;
+const CINEMA=!new URLSearchParams(location.search).has('interactive');
+const STEP_MS={1:4200,2:3800,3:6200,4:5200,5:4600,6:4200,7:9500,8:4800,9:4800,10:5800,11:4600,12:5000,13:6200};
+const LOOP_PAUSE=4000;
+let current='meetrewrite', step=1, auto=false, autoTimer=null, progressTimer=null, stepStarted=0, paused=false;
 
 /* ============================================================ PICKER */
 function renderProjects(){
@@ -609,10 +681,45 @@ function renderStage(){
   document.getElementById('stageBlurb').textContent=BLURBS[step-1];
   document.getElementById('phaseBadge').textContent=phaseOf(step);
   const body=document.getElementById('stageBody');
-  body.className='stagebody fade'; body.innerHTML=STEPS[step](p); void body.offsetWidth;
-  if(step===4) typeScan(p);
+  body.className='stagebody fade';
+  if(p.stepShots?.[step]) body.innerHTML=renderCinemaShot(p,step);
+  else body.innerHTML=STEPS[step](p);
+  void body.offsetWidth;
+  if(step===4 && !p.stepShots?.[4]) typeScan(p);
   document.getElementById('backBtn').style.visibility=step===1?'hidden':'visible';
   document.getElementById('nextBtn').innerHTML=step===13?'✓ Run complete':'Next step <span class="arr">→</span>';
+  updateCinemaHud();
+  resetStepProgress();
+}
+
+function renderCinemaShot(p,n){
+  const s=p.stepShots[n];
+  if(s.type==='dual') return `<div class="shot-wrap"><div class="cap-grid">
+    <div class="browser-frame shot-desktop"><div class="browser-bar">
+      <span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span>
+      <span class="url">https://${p.url}</span></div>
+      <img src="${s.desktop}" alt="Desktop capture" loading="eager" /></div>
+    <div class="phone-shot shot-phone"><div class="phone-img"><img src="${s.mobile}" alt="Mobile capture" loading="eager" /></div>
+      <div class="plabel">live iPhone capture</div></div></div></div>`;
+  if(s.type==='compare') return `<div class="shot-wrap"><div class="compare-stack">${s.pairs.map(pv=>renderCompare(pv)).join('')}</div></div>`;
+  return `<div class="shot-wrap shot-phone"><div class="phone-img"><img src="${s.src}" alt="${STEP_TITLES[n-1]}" loading="eager" /></div></div>`;
+}
+
+function updateCinemaHud(){
+  const hud=document.getElementById('cinemaHud'); if(!hud)return;
+  const cs=document.getElementById('cinemaStep');
+  if(cs) cs.textContent=`Step ${step} / 13`;
+  hud.style.display=CINEMA?'flex':'none';
+}
+function resetStepProgress(){
+  if(!CINEMA||!auto)return;
+  clearInterval(progressTimer); stepStarted=Date.now();
+  const fill=document.getElementById('cinemaFill'), dur=STEP_MS[step]||4000;
+  progressTimer=setInterval(()=>{
+    if(paused)return;
+    const pct=Math.min(100,((Date.now()-stepStarted)/dur)*100);
+    if(fill) fill.style.width=pct+'%';
+  },50);
 }
 
 const STEPS={};
@@ -902,19 +1009,37 @@ function typeScan(p){
 }
 
 /* ============================================================ NAV / AUTO */
-function next(){if(step<13){step++;renderStage();renderRail();}else{stopAuto();}}
+function next(){if(step<13){step++;renderStage();renderRail();}else if(CINEMA){step=1;renderStage();renderRail();}else stopAuto();}
 function back(){if(step>1){step--;renderStage();renderRail();}}
-function restart(){step=1;stopAuto();renderStage();renderRail();document.getElementById('shell').scrollIntoView({behavior:'smooth',block:'start'});}
-function startAuto(){
-  if(auto)return; auto=true;
-  document.getElementById('autoIndicator').style.display='inline-flex';
-  document.getElementById('autoBtn').textContent='⏸ Stop';
-  document.getElementById('shell').scrollIntoView({behavior:'smooth',block:'start'});
-  const advance=()=>{if(!auto)return;if(step>=13){stopAuto();return;}next();const wait=step===4?4200:2300;autoTimer=setTimeout(advance,wait);};
-  autoTimer=setTimeout(advance,step===1?900:2300);
+function restart(){step=1;stopAuto();renderStage();renderRail();document.getElementById('shell').scrollIntoView({behavior:'smooth',block:'start'});if(CINEMA)startAuto();}
+function stepWait(){return CINEMA?(STEP_MS[step]||4000):(step===4?4200:2300);}
+function scheduleAdvance(){
+  clearTimeout(autoTimer);
+  const wait=step>=13&&CINEMA?LOOP_PAUSE:stepWait();
+  autoTimer=setTimeout(()=>{
+    if(!auto||paused)return;
+    if(step>=13){if(CINEMA){step=1;renderStage();renderRail();scheduleAdvance();}else stopAuto();return;}
+    step++;renderStage();renderRail();scheduleAdvance();
+  },wait);
 }
-function stopAuto(){auto=false;clearTimeout(autoTimer);const ind=document.getElementById('autoIndicator');if(ind)ind.style.display='none';document.getElementById('autoBtn').textContent='▶ Auto-run';}
-function toggleAuto(){auto?stopAuto():startAuto();}
+function startAuto(){
+  if(auto&&!paused){paused=false;scheduleAdvance();return;}
+  auto=true; paused=false;
+  const ind=document.getElementById('autoIndicator'); if(ind) ind.style.display=CINEMA?'none':'inline-flex';
+  const btn=document.getElementById('autoBtn'); if(btn) btn.textContent=CINEMA?'⏸ Pause':'⏸ Stop';
+  const pp=document.getElementById('playPauseBtn'); if(pp) pp.textContent='⏸';
+  document.getElementById('shell').scrollIntoView({behavior:'smooth',block:'start'});
+  scheduleAdvance();
+}
+function stopAuto(){auto=false;paused=false;clearTimeout(autoTimer);clearInterval(progressTimer);
+  const ind=document.getElementById('autoIndicator');if(ind)ind.style.display='none';
+  const btn=document.getElementById('autoBtn');if(btn)btn.textContent=CINEMA?'▶ Play':'▶ Auto-run';
+  const pp=document.getElementById('playPauseBtn');if(pp)pp.textContent='▶';
+  const fill=document.getElementById('cinemaFill');if(fill)fill.style.width='0%';}
+function toggleAuto(){auto&&!paused?pauseAuto():startAuto();}
+function pauseAuto(){if(!auto)return;paused=true;clearTimeout(autoTimer);clearInterval(progressTimer);
+  const btn=document.getElementById('autoBtn');if(btn)btn.textContent='▶ Play';
+  const pp=document.getElementById('playPauseBtn');if(pp)pp.textContent='▶';}
 
 /* ============================================================ NARRATION */
 const TOUR=[
@@ -991,7 +1116,27 @@ function showCoach(){
 window.addEventListener('resize',()=>{if(document.getElementById('tourBackdrop').classList.contains('on'))showCoach();});
 
 /* ============================================================ WIRE UP */
-function renderAll(){renderProjects();renderRail();renderStage();}
+function initMode(){
+  if(CINEMA){
+    document.body.classList.add('cinema');
+    document.getElementById('interactiveLink').style.display='inline-flex';
+    const pill=document.getElementById('modePill');
+    if(pill) pill.innerHTML='auto-playing · <b>real screenshots</b>';
+  } else {
+    document.body.classList.remove('cinema');
+    document.getElementById('intro')?.classList.add('off');
+    document.getElementById('cinemaHud').style.display='none';
+    document.getElementById('interactiveLink').style.display='none';
+    const pill=document.getElementById('modePill');
+    if(pill) pill.innerHTML='interactive demo · <b>click through</b>';
+    const btn=document.getElementById('autoBtn'); if(btn) btn.textContent='▶ Auto-run';
+  }
+}
+function renderAll(){if(!CINEMA)renderProjects();else{const g=document.getElementById('projectGrid');if(g)g.innerHTML='';}renderRail();renderStage();}
+function beginCinema(){
+  const intro=document.getElementById('intro');
+  setTimeout(()=>{intro?.classList.add('off');startAuto();},2600);
+}
 document.getElementById('nextBtn').onclick=()=>{stopAuto();next();};
 document.getElementById('backBtn').onclick=()=>{stopAuto();back();};
 document.getElementById('restartBtn').onclick=restart;
@@ -999,14 +1144,18 @@ document.getElementById('autoBtn').onclick=toggleAuto;
 document.getElementById('autoBtn2').onclick=()=>{step=1;renderStage();renderRail();startAuto();};
 document.getElementById('tourBtn2').onclick=startTour;
 document.getElementById('helpFab').onclick=startTour;
+document.getElementById('playPauseBtn')?.addEventListener('click',toggleAuto);
+document.getElementById('shell')?.addEventListener('click',(e)=>{if(!CINEMA)return;if(e.target.closest('a,button,.step'))return;toggleAuto();});
 document.addEventListener('keydown',(e)=>{
   if(document.getElementById('tourBackdrop').classList.contains('on'))return;
+  if(e.key===' '){e.preventDefault();toggleAuto();}
   if(e.key==='ArrowRight'){stopAuto();next();}
   if(e.key==='ArrowLeft'){stopAuto();back();}
 });
+initMode();
 renderAll();
-// auto-launch tour on first visit
-try{if(!localStorage.getItem('rw_tour_done')) setTimeout(startTour,650);}catch(e){}
+if(CINEMA) beginCinema();
+else try{if(!localStorage.getItem('rw_tour_done')) setTimeout(startTour,650);}catch(e){}
 </script>
 </body>
 </html>
