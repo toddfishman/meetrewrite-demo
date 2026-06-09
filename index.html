@@ -6,29 +6,31 @@
 <title>Rewrite — meetrewrite.com → native iOS (auto demo)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* ---- real Rewrite brand ---- */
-    --bg:#0a0e1b;            /* navy */
+    /* ---- real Rewrite brand (matches web/app/globals.css) ---- */
+    --bg:#0a0e1b;
     --bg2:#0b1020;
-    --panel:#11162a;
-    --panel2:#0d1224;
-    --line:#1d2442;
-    --line2:#2b3560;
-    --ink:#eef1ff;
-    --muted:#9aa3c7;
-    --faint:#69719c;
-    --cyan:#4FE0E8;
-    --pink:#FF4FB8;
-    --purple:#B57BFF;
-    --acc:#4FE0E8;          /* primary accent = brand cyan */
+    --panel:rgba(17,22,42,.72);
+    --panel2:rgba(13,18,36,.85);
+    --line:rgba(255,255,255,.08);
+    --line2:rgba(255,255,255,.14);
+    --ink:#e8e5f2;
+    --muted:rgba(232,229,242,.65);
+    --faint:rgba(232,229,242,.42);
+    --cyan:#4fe0e8;
+    --pink:#ff4fb8;
+    --purple:#b57bff;
+    --indigo:#7b6fe8;
+    --indigo-hover:#8a7fef;
+    --acc:#7b6fe8;
     --warn:#ffd166;
     --bad:#ff7a7a;
-    --grad:linear-gradient(135deg,#FF4FB8 0%,#B57BFF 52%,#4FE0E8 100%);
-    --grad-v:linear-gradient(180deg,#FF4FB8,#4FE0E8);
+    --grad:linear-gradient(90deg,#ff4fb8 0%,#b57bff 50%,#4fe0e8 100%);
+    --grad-v:linear-gradient(180deg,#ff4fb8,#4fe0e8);
     --mono:'SF Mono',ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace;
-    --disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --disp:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -50,7 +52,10 @@
   /* ---------- logo ---------- */
   .rw-logo{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
   .rw-mark{width:30px;height:30px;display:block;filter:drop-shadow(0 2px 8px rgba(181,123,255,.35))}
-  .rw-word{font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:-.02em;color:var(--ink);line-height:1}
+  .rw-word{font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:-.02em;color:var(--ink);line-height:1;display:inline-flex;align-items:baseline;gap:1px}
+  .rw-word .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .rw-word .rw-pipe{opacity:.55;font-weight:500;margin:0 1px}
+  .intro-head{font-family:var(--disp);font-size:clamp(22px,4vw,34px);margin:0 0 10px;letter-spacing:-.02em;font-weight:700}
   .rw-beta{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
     color:var(--cyan);border:1px solid var(--line2);border-radius:6px;padding:3px 6px;line-height:1}
   .rw-sub{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:1px}
@@ -76,9 +81,9 @@
     background:var(--panel);color:var(--ink);padding:12px 18px;border-radius:11px;transition:.15s;
     display:inline-flex;align-items:center;gap:9px}
   .btn:hover{border-color:var(--cyan);transform:translateY(-1px)}
-  .btn.primary{background:var(--grad);color:#0a0e1b;border-color:transparent;font-weight:700;
-    box-shadow:0 8px 28px rgba(181,123,255,.30)}
-  .btn.primary:hover{filter:brightness(1.06)}
+  .btn.primary{background:var(--indigo);color:#fff;border-color:transparent;font-weight:700;
+    box-shadow:0 8px 28px rgba(123,111,232,.35)}
+  .btn.primary:hover{background:var(--indigo-hover)}
   .btn .arr{transition:.15s}
   .btn:hover .arr{transform:translateX(3px)}
   .note{color:var(--faint);font-size:13px;font-family:var(--mono)}
@@ -149,7 +154,8 @@
   .stagebody{flex:1;margin-top:20px}
 
   /* generic blocks */
-  .card{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:16px 17px;margin-bottom:13px}
+  .card{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:16px 17px;margin-bottom:13px;
+    backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
   .card h4{font-family:var(--disp);margin:0 0 10px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
   .card h4 .ic{color:var(--cyan)}
   .kv{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
@@ -335,8 +341,10 @@
   body.cinema .shot-wrap{width:100%;animation:fade .5s ease}
   body.cinema .shot-phone{display:flex;justify-content:center}
   body.cinema .shot-phone .phone-img{width:250px}
-  body.cinema .shot-desktop .browser-frame{max-width:720px;margin:0 auto}
-  body.cinema .shot-desktop img{max-height:440px;object-fit:cover;object-position:top center}
+  body.cinema .shot-desktop .browser-frame{max-width:860px;margin:0 auto}
+  body.cinema .shot-desktop img{max-height:480px;object-fit:cover;object-position:top center;width:100%}
+  body.cinema .shot-desktop.shot-wide .browser-frame{max-width:960px}
+  body.cinema .shot-desktop.shot-wide img{max-height:520px}
   body.cinema .compare-stack{gap:22px}
   body.cinema .compare-pair{gap:18px}
   body.cinema .compare-side .phone-img{width:220px}
@@ -374,10 +382,7 @@
 <div class="top">
   <div class="wrap">
     <a class="rw-logo" href="#top">
-      <svg class="rw-mark" viewBox="0 0 100 100" role="img" aria-label="Rewrite">
-        <text x="50" y="78" text-anchor="middle" font-family="'Space Grotesk',Inter,system-ui,sans-serif" font-size="92" font-weight="700" letter-spacing="-3" fill="url(#rwGrad)">R</text>
-      </svg>
-      <span class="rw-word">Rewrite</span>
+      <span class="rw-word"><span class="g">RE</span><span class="rw-pipe">|</span><span>WRITE</span></span>
       <span class="rw-beta">Beta</span>
     </a>
     <span class="rw-sub">Web → iOS</span>
@@ -393,7 +398,7 @@
   <div class="wrap">
     <div class="kicker"><span class="dot"></span> The workflow, end to end</div>
     <h1>Watch a website become a <span class="g">native iOS app.</span></h1>
-    <p class="lede">Rewrite turns your site, web app, or storefront into a <b>real Swift / SwiftUI app</b> — not a WebView wrapper. This is an interactive demo of the actual <b>13-step guided run</b>: scan &amp; scope → preview &amp; quote → build &amp; handoff. <b>Preview free. Pay when it ships.</b></p>
+    <p class="lede">Rewrite turns your site, web app, or storefront into a <b>real Swift / SwiftUI app</b> — not a WebView wrapper. This is an interactive demo of the actual <b>14-step guided run</b>: scan &amp; scope → preview &amp; quote → build &amp; handoff. <b>Preview free. Pay when it ships.</b></p>
     <div class="herorow">
       <button class="btn primary" onclick="document.getElementById('pick').scrollIntoView({behavior:'smooth'})">Pick an example run <span class="arr">→</span></button>
       <button class="btn" id="autoBtn2">▶ Auto-run the whole thing</button>
@@ -406,22 +411,22 @@
 <!-- ===== how it works ===== -->
 <div class="sec wrap">
   <h2>How it works</h2>
-  <div class="h3">Three phases. Thirteen steps. One Xcode project at the end.</div>
+  <div class="h3">Three phases. Fourteen steps. One Xcode project at the end.</div>
   <div class="strip">
     <div class="scard">
       <div class="ph">PHASE 1 · STEPS 1–6</div>
       <div class="st">Scan &amp; scope</div>
-      <div class="sd">Drop a live URL (and optionally your code). Rewrite captures how it looks today, scans routes, components and design tokens, then you set scope &amp; direction.</div>
+      <div class="sd">Connect your code and live URL. Rewrite inspects the site, you approve scope, set up your Mac/Xcode path, and lock preferences.</div>
     </div>
     <div class="scard">
-      <div class="ph">PHASE 2 · STEPS 7–9</div>
+      <div class="ph">PHASE 2 · STEPS 7–10</div>
       <div class="st">Preview &amp; quote</div>
-      <div class="sd">See free native previews of your screens on a real iPhone frame. Choose a delivery tier — scaffold or fully-wired — and approve a fixed quote before anything is built.</div>
+      <div class="sd">Free native previews on a phone frame, pick delivery polish, then review the quote and sign off on the deposit.</div>
     </div>
     <div class="scard">
-      <div class="ph">PHASE 3 · STEPS 10–13</div>
+      <div class="ph">PHASE 3 · STEPS 11–14</div>
       <div class="st">Build &amp; handoff</div>
-      <div class="sd">Native screens are built and reviewed, balance settles, and you get a buildable Xcode project plus a plain-English path to TestFlight and the App Store.</div>
+      <div class="sd">Approve every screen, pay the balance, download the Xcode zip, and follow the launch guide to TestFlight and the App Store.</div>
     </div>
   </div>
 </div>
@@ -434,15 +439,14 @@
 </div>
 
 <div id="intro" class="intro on">
-  <svg class="imark" viewBox="0 0 100 100" aria-hidden="true"><text x="50" y="78" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="92" font-weight="700" letter-spacing="-3" fill="url(#rwGrad)">R</text></svg>
-  <h1>Watch <span style="color:var(--cyan)">meetrewrite.com</span> become a native iOS app</h1>
-  <p>13 steps · real screenshots · preview free, pay when it ships</p>
+  <h1 class="intro-head">Watch <span class="g">meetrewrite.com</span> become a native iOS app</h1>
+  <p>14 steps · real prod screenshots · preview free, pay when it ships</p>
   <span class="spin"></span>
 </div>
 <div id="cinemaBar"><div id="cinemaFill"></div></div>
 <div id="cinemaHud" style="display:none">
   <button id="playPauseBtn" title="Pause / play">⏸</button>
-  <span id="cinemaStep">Step 1 / 13</span>
+  <span id="cinemaStep">Step 1 / 14</span>
   <a href="?interactive=1">Click to explore →</a>
 </div>
 
@@ -458,7 +462,7 @@
     <div class="stage">
       <div class="stagehead">
         <div>
-          <div class="stepof" id="stepOf">STEP 1 / 13</div>
+          <div class="stepof" id="stepOf">STEP 1 / 14</div>
           <h3 id="stageTitle">Paste your live URL</h3>
           <div class="blurb" id="stageBlurb"></div>
         </div>
@@ -494,14 +498,14 @@
    ============================================================ */
 const PHASES = [
   {name:'PHASE 1 · SCAN & SCOPE', steps:[1,2,3,4,5,6]},
-  {name:'PHASE 2 · PREVIEW & QUOTE', steps:[7,8,9]},
-  {name:'PHASE 3 · BUILD & HANDOFF', steps:[10,11,12,13]},
+  {name:'PHASE 2 · PREVIEW & QUOTE', steps:[7,8,9,10]},
+  {name:'PHASE 3 · BUILD & HANDOFF', steps:[11,12,13,14]},
 ];
 const STEP_TITLES = [
-  'Paste your live URL','Share your code (optional)','Capture how it looks today','Scan & inspect',
-  'Define the scope','Preferences & direction','Build plan + free preview','Choose a delivery tier',
-  'Approve the quote','Build & review native screens','Settle the balance','Generate the handoff package',
-  'App Store submission checks',
+  'Paste your live URL','Connect your code','Capture the live site','Inspection checklist',
+  'Approve scope','Your Mac & Xcode setup','Preferences & direction','Plan & free previews',
+  'Choose delivery polish','Quote & sign-off','Build & approve screens','Pay remaining balance',
+  'Generate handoff zip','Ship to App Store',
 ];
 
 const PROJECTS = {
@@ -511,7 +515,7 @@ const PROJECTS = {
     chips:['Next.js','GitHub','Real captures'], hasCode:true, codeKind:'GitHub · toddfishman/rewrite',
     stack:'Next.js · App Router · Tailwind',
     routes:['/','/start','/guided','/pricing','/about','/faq','/contact','/demo','/scan','/status','/terms','/privacy','/what-we-ship','/launch-guide','/account','/auth/callback','/behind-the-curtain','/investor-package','/platform-source-helper'],
-    tokens:{primary:'#7b6fe8',accent:'#f04fbf',bg:'#0a0e1b',font:'"Space Grotesk" + "Inter"'},
+    tokens:{primary:'#7b6fe8',accent:'#f04fbf',bg:'#0a0e1b',font:'Outfit + Inter'},
     components:186, apis:'Stripe + hosted API — matched from repo',
     capture:{desktop:'assets/meetrewrite/capture-home-desktop.png',mobile:'assets/meetrewrite/capture-home-mobile.png',label:'meetrewrite.com · iPhone capture'},
     comparePreviews:true,
@@ -528,24 +532,22 @@ const PROJECTS = {
     ],
     reviewShot:'assets/meetrewrite/capture-guided-mobile.png',
     stepShots:{
-      1:{type:'phone',src:'assets/meetrewrite/steps/01-url.png'},
-      2:{type:'phone',src:'assets/meetrewrite/steps/02-code.png'},
-      3:{type:'dual',desktop:'assets/meetrewrite/steps/03-capture-desktop.png',mobile:'assets/meetrewrite/steps/03-capture-mobile.png'},
-      4:{type:'phone',src:'assets/meetrewrite/steps/04-scan.png'},
-      5:{type:'phone',src:'assets/meetrewrite/steps/05-scope.png'},
-      6:{type:'phone',src:'assets/meetrewrite/steps/06-prefs.png'},
-      7:{type:'compare',pairs:[
-        {title:'Home',web:'assets/meetrewrite/steps/07-web-home.png',native:'assets/meetrewrite/steps/07-native-home.png'},
-        {title:'Start',web:'assets/meetrewrite/steps/07-web-start.png',native:'assets/meetrewrite/steps/07-native-start.png'},
-      ]},
-      8:{type:'phone',src:'assets/meetrewrite/steps/08-tier.png'},
-      9:{type:'phone',src:'assets/meetrewrite/steps/09-quote.png'},
-      10:{type:'phone',src:'assets/meetrewrite/steps/10-build-guided.png'},
-      11:{type:'phone',src:'assets/meetrewrite/steps/11-balance.png'},
-      12:{type:'phone',src:'assets/meetrewrite/steps/12-handoff.png'},
-      13:{type:'phone',src:'assets/meetrewrite/steps/13-ship.png'},
+      1:{type:'dual',desktop:'assets/v2/steps/00-home-desktop.png',mobile:'assets/v2/steps/00-home-mobile.png'},
+      2:{type:'desktop',src:'assets/v2/steps/02-code.png',wide:true},
+      3:{type:'desktop',src:'assets/v2/steps/03-capture.png',wide:true},
+      4:{type:'desktop',src:'assets/v2/steps/04-scan.png',wide:true},
+      5:{type:'desktop',src:'assets/v2/steps/05-scope.png',wide:true},
+      6:{type:'desktop',src:'assets/v2/steps/08-tier.png',wide:true},
+      7:{type:'desktop',src:'assets/v2/steps/06-prefs.png',wide:true},
+      8:{type:'desktop',src:'assets/v2/steps/11-preview-ready.png',wide:true},
+      9:{type:'desktop',src:'assets/v2/steps/07-preview.png',wide:true},
+      10:{type:'desktop',src:'assets/v2/steps/16-quote-deposit.png',wide:true},
+      11:{type:'desktop',src:'assets/v2/steps/12-compare-stacked.png',wide:true},
+      12:{type:'desktop',src:'assets/v2/steps/14-build-grid.png',wide:true},
+      13:{type:'desktop',src:'assets/v2/steps/13-quote-breakdown.png',wide:true},
+      14:{type:'desktop',src:'assets/v2/steps/18-ship-launch-guide.png',wide:true},
     },
-    quote:{tierName:'Standard',rows:[['19 native screens','incl.'],['Stripe + API wiring from repo','incl.'],['Push + camera permissions','incl.'],['Preview iterations (2 rounds)','incl.']],total:'$523',eta:'~24h'},
+    quote:{tierName:'Standard',rows:[['15 native screens','incl.'],['Stripe + API wiring from repo','incl.'],['Deposit (paid at sign-off)','$150'],['Balance due after build','$369']],total:'$519',eta:'~24h'},
     files:'meetrewrite',
   },
   brew:{
@@ -618,7 +620,7 @@ const PROJECTS = {
 
 /* ============================================================ STATE */
 const CINEMA=!new URLSearchParams(location.search).has('interactive');
-const STEP_MS={1:4200,2:3800,3:6200,4:5200,5:4600,6:4200,7:9500,8:4800,9:4800,10:5800,11:4600,12:5000,13:6200};
+const STEP_MS={1:4200,2:3800,3:5200,4:5200,5:4600,6:4200,7:4200,8:5800,9:4800,10:5200,11:6200,12:5200,13:4800,14:6200};
 const LOOP_PAUSE=4000;
 let current='meetrewrite', step=1, auto=false, autoTimer=null, progressTimer=null, stepStarted=0, paused=false;
 
@@ -661,22 +663,23 @@ function renderRail(){
 /* ============================================================ STAGE */
 const BLURBS=[
   'Everything starts with a URL. No signup, no install — Rewrite just needs to see what you already have.',
-  'Optional, but it unlocks real data wiring. Connect a GitHub repo or drop a .zip and Rewrite matches your integrations.',
-  'Rewrite snapshots your live site so every native screen has a source of truth to match against.',
-  'A read-only pass over routes, components, design tokens and APIs — the raw material for the native plan.',
-  'You decide which screens make the cut for v1. Everything maps to a native SwiftUI view.',
-  'Pick navigation pattern, theme and overall direction. This shapes the previews you’re about to see.',
-  'The native plan, free. See your screens rendered on a real iPhone frame before paying a cent.',
-  'Scaffold to move fast, or fully-wired with live data and APIs. Same screens, different depth.',
-  'A fixed quote, no surprises. The preview was free — you only pay to ship.',
-  'Native screens are assembled and reviewed against the captured site, with parity notes.',
-  'Preview was free; the balance settles now that the build is approved. (Simulated.)',
-  'A buildable Xcode project plus docs and an App Store guide, zipped and ready.',
-  'Final pre-flight against App Store requirements before you push to TestFlight.',
+  'Connect your GitHub repo (read-only) so Rewrite can match real integrations — Stripe, auth, push, and more.',
+  'Rewrite captures your live site so every native screen has a source of truth to match against.',
+  'A guided inspection checklist — routes, integrations, and gaps — before scope is locked.',
+  'You decide which screens ship in v1. Everything maps to a native SwiftUI view.',
+  'Are you on a Mac? Do you have Xcode? We tailor Simulator and Archive hints from your answers.',
+  'Navigation, theme, and product direction — including how closely the app should match your site.',
+  'Free native previews on a phone frame. Approve the look before you pay the deposit.',
+  'Pick Standard, Essential, or Premium polish — same scope, different visual finish.',
+  'Review the quote, sign the scope, and pay the deposit. Balance is due after build approval.',
+  'Every screen is built and reviewed side-by-side with your live site. Approve each one.',
+  'Pay the remaining balance to unlock the full Xcode handoff zip.',
+  'Download the buildable Swift project, run the pre-flight compile check, and open in Xcode.',
+  'Step-by-step TestFlight and App Store checklist — your Apple account, our launch guide.',
 ];
 function renderStage(){
   const p=PROJECTS[current];
-  document.getElementById('stepOf').textContent=`STEP ${step} / 13`;
+  document.getElementById('stepOf').textContent=`STEP ${step} / 14`;
   document.getElementById('stageTitle').textContent=STEP_TITLES[step-1];
   document.getElementById('stageBlurb').textContent=BLURBS[step-1];
   document.getElementById('phaseBadge').textContent=phaseOf(step);
@@ -687,7 +690,7 @@ function renderStage(){
   void body.offsetWidth;
   if(step===4 && !p.stepShots?.[4]) typeScan(p);
   document.getElementById('backBtn').style.visibility=step===1?'hidden':'visible';
-  document.getElementById('nextBtn').innerHTML=step===13?'✓ Run complete':'Next step <span class="arr">→</span>';
+  document.getElementById('nextBtn').innerHTML=step===14?'✓ Run complete':'Next step <span class="arr">→</span>';
   updateCinemaHud();
   resetStepProgress();
 }
@@ -702,13 +705,18 @@ function renderCinemaShot(p,n){
     <div class="phone-shot shot-phone"><div class="phone-img"><img src="${s.mobile}" alt="Mobile capture" loading="eager" /></div>
       <div class="plabel">live iPhone capture</div></div></div></div>`;
   if(s.type==='compare') return `<div class="shot-wrap"><div class="compare-stack">${s.pairs.map(pv=>renderCompare(pv)).join('')}</div></div>`;
+  if(s.type==='desktop') return `<div class="shot-wrap shot-desktop${s.wide?' shot-wide':''}"><div class="browser-frame">
+    <div class="browser-bar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span>
+    <span class="url">meetrewrite.com/guided</span></div>
+    <img src="${s.src}" alt="${STEP_TITLES[n-1]}" loading="eager" /></div>
+    <div class="plabel" style="text-align:center;margin-top:10px">● real prod screenshot</div></div>`;
   return `<div class="shot-wrap shot-phone"><div class="phone-img"><img src="${s.src}" alt="${STEP_TITLES[n-1]}" loading="eager" /></div></div>`;
 }
 
 function updateCinemaHud(){
   const hud=document.getElementById('cinemaHud'); if(!hud)return;
   const cs=document.getElementById('cinemaStep');
-  if(cs) cs.textContent=`Step ${step} / 13`;
+  if(cs) cs.textContent=`Step ${step} / 14`;
   hud.style.display=CINEMA?'flex':'none';
 }
 function resetStepProgress(){
@@ -901,7 +909,7 @@ STEPS[13]=(p)=>`
     <div class="subrow todo"><span class="s">!</span> Push to TestFlight &amp; submit for review <span class="tag2">guide incl.</span></div></div>
   <div class="card" style="margin-top:14px;text-align:center;border-color:transparent;box-shadow:inset 0 0 0 1.5px var(--cyan)">
     <div style="font-family:var(--disp);font-weight:700;font-size:18px">Run complete ✦</div>
-    <div style="color:var(--muted);font-size:13.5px;margin-top:6px">${p.name} went from <b style="color:var(--ink)">${p.url}</b> to a buildable native iOS app in 13 steps — preview free, ${p.quote.total} on ship.</div>
+    <div style="color:var(--muted);font-size:13.5px;margin-top:6px">${p.name} went from <b style="color:var(--ink)">${p.url}</b> to a buildable native iOS app in 14 steps — preview free, ${p.quote.total} on ship.</div>
     <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <button class="btn ghost" onclick="restart()">↺ Run again</button>
       <button class="btn primary" onclick="document.getElementById('pick').scrollIntoView({behavior:'smooth'})">Try another project →</button></div></div>`;
@@ -1009,16 +1017,16 @@ function typeScan(p){
 }
 
 /* ============================================================ NAV / AUTO */
-function next(){if(step<13){step++;renderStage();renderRail();}else if(CINEMA){step=1;renderStage();renderRail();}else stopAuto();}
+function next(){if(step<14){step++;renderStage();renderRail();}else if(CINEMA){step=1;renderStage();renderRail();}else stopAuto();}
 function back(){if(step>1){step--;renderStage();renderRail();}}
 function restart(){step=1;stopAuto();renderStage();renderRail();document.getElementById('shell').scrollIntoView({behavior:'smooth',block:'start'});if(CINEMA)startAuto();}
 function stepWait(){return CINEMA?(STEP_MS[step]||4000):(step===4?4200:2300);}
 function scheduleAdvance(){
   clearTimeout(autoTimer);
-  const wait=step>=13&&CINEMA?LOOP_PAUSE:stepWait();
+  const wait=step>=14&&CINEMA?LOOP_PAUSE:stepWait();
   autoTimer=setTimeout(()=>{
     if(!auto||paused)return;
-    if(step>=13){if(CINEMA){step=1;renderStage();renderRail();scheduleAdvance();}else stopAuto();return;}
+    if(step>=14){if(CINEMA){step=1;renderStage();renderRail();scheduleAdvance();}else stopAuto();return;}
     step++;renderStage();renderRail();scheduleAdvance();
   },wait);
 }
@@ -1044,11 +1052,11 @@ function pauseAuto(){if(!auto)return;paused=true;clearTimeout(autoTimer);clearIn
 /* ============================================================ NARRATION */
 const TOUR=[
   {target:null,title:'Welcome to Rewrite',mark:true,
-   body:'This is an interactive demo of the real product workflow — watch a website become a native iOS app in 13 guided steps. Preview free, pay when it ships. Take the 4-step tour?',
+   body:'This is an interactive demo of the real product workflow — watch a website become a native iOS app in 14 guided steps. Preview free, pay when it ships. Take the 4-step tour?',
    cta:'Take the tour'},
   {target:'#projectGrid',title:'1 · Pick a project',pos:'bottom',
-   body:'Start with MeetRewrite — real site captures and native preview frames from an actual build. Or try three fictional examples (Shopify, SaaS, invoicing) to see the same 13-step flow.',cta:'Next'},
-  {target:'#rail',title:'2 · Follow the 13 steps',pos:'right',
+   body:'Start with MeetRewrite — real prod screenshots from an actual guided session on meetrewrite.com. Or try three fictional examples to see the same 14-step flow.',cta:'Next'},
+  {target:'#rail',title:'2 · Follow the 14 steps',pos:'right',
    body:'The workflow runs in three phases: Scan & Scope, Preview & Quote, Build & Handoff. Click any step here to jump straight to it.',cta:'Next'},
   {target:'#nextBtn',title:'3 · Step through it',pos:'top',
    body:'Use Next (or your ← / → arrow keys) to advance. Watch for the live site scan, free iPhone previews, the quote, and the final Xcode handoff package.',cta:'Next'},
